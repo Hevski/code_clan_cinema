@@ -1,12 +1,13 @@
 require_relative('models/customer')
 require_relative('models/film')
 require_relative('models/ticket')
+require_relative('models/screening')
 require('pry')
 
+Screening.delete_all()
 Ticket.delete_all()
 Customer.delete_all()
 Film.delete_all()
-
 
 customer1 = Customer.new({'name' => 'Eloise', 'funds' => '30'})
 customer1.save()
@@ -20,7 +21,6 @@ customer5 = Customer.new({'name' => 'Paddy', 'funds' => '12'})
 customer5.save()
 customer6 = Customer.new({'name' => 'Connor', 'funds' => '18'})
 customer6.save()
-
 film1 = Film.new({'title' => 'Meru', 'price' => '5'})
 film1.save()
 film2 = Film.new({'title' => 'Split', 'price' => '8'})
@@ -31,7 +31,6 @@ film4 = Film.new({'title' => 'Alien', 'price' => '5'})
 film4.save()
 film5 = Film.new({'title' => '12 Monkeys', 'price' => '6'})
 film5.save()
-
 ticket1 = Ticket.new({'customer_id' => customer1.id, 'film_id' => film1.id})
 ticket1.save()
 ticket2 = Ticket.new({'customer_id' => customer2.id, 'film_id' => film1.id})
@@ -46,6 +45,16 @@ ticket6 = Ticket.new({'customer_id' => customer5.id, 'film_id' => film4.id})
 ticket6.save()
 ticket7 = Ticket.new({'customer_id' => customer6.id, 'film_id' => film3.id})
 ticket7.save()
+screening1 = Screening.new({'time' => '18:10', 'film_id' => film1.id})
+screening1.save()
+screening2 = Screening.new({'time' => '19:00', 'film_id' => film2.id})
+screening2.save()
+screening3 = Screening.new({'time' => '19:45', 'film_id' => film3.id})
+screening3.save()
+screening4 = Screening.new({'time' => '20:30', 'film_id' => film4.id})
+screening4.save()
+screening5 = Screening.new({'time' => '22:10', 'film_id' => film5.id})
+screening5.save()
 
 binding.pry
 nil

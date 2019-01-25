@@ -1,7 +1,7 @@
 require_relative("../db/sql_runner")
 
 class Ticket
-  attr_accessor :customer_id, :film_id
+  attr_accessor :customer_id, :film_id, #:screening_id
   attr_reader :id
 
   def initialize(options)
