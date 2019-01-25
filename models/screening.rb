@@ -3,17 +3,16 @@ require_relative("../db/sql_runner")
 class Screening
 
   attr_reader :id
-  attr_accessor :time, :film_id
+  attr_accessor :time
 
   def initialize(options)
     @id = options['id'].to_i if options['to_i']
     @time = options['time']
-    @film_id = options['film_id'].to_i
   end
 
   def save()
-    sql = "INSERT INTO screenings (time, film_id) VALUES ($1, $2) RETURNING id"
-    values = [@time, @film_id]
+    sql = "INSERT INTO screenings (time) VALUES ($1) RETURNING id"
+    values = [@time]
     screening = SqlRunner.run(sql, values)[0]
     @id = screening['id'].to_i
   end
@@ -32,9 +31,9 @@ class Screening
 
   def update()
     sql = "UPDATE screenings
-           SET (time, film_id)
-           = ($1, $2) WHERE id = $3"
-    values = [@time, @film_id, @id]
+           SET time
+           = $1 WHERE id = $2"
+    values = [@time, @id]
     SqlRunner.run(sql, values)
   end
 

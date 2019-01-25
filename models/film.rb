@@ -1,4 +1,5 @@
 require_relative("../db/sql_runner")
+require('pry')
 
 class Film
   attr_accessor :title, :price
@@ -66,10 +67,11 @@ class Film
   end
 
   def screening
-    sql = "SELECT screenings.*, tickets.*
+    sql = "SELECT screenings.*
            FROM screenings
-           LEFT JOIN films
-           ON screening.id = films.customer_id"
+           INNER JOIN tickets
+           ON tickets.screening_id = screenings.id
+           WHERE film_id = $1"
     customer_count
     values = [@id]
     screening_data = SqlRunner.run(sql, values)
