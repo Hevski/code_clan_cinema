@@ -72,8 +72,4 @@ class Customer
   def tickets_purchased()
     film().length
   end
-
-
-
-
 end

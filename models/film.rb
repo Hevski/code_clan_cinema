@@ -65,16 +65,12 @@ class Film
     customer().length
   end
 
-  # def tickets_sold
-  #
-  # end
-
   def screening
-    sql = "SELECT screenings.*
+    sql = "SELECT screenings.*, tickets.*
            FROM screenings
-           INNER JOIN tickets
-           ON tickets.screening_id = screenings.id
-           WHERE film_id = $1"
+           LEFT JOIN films
+           ON screening.id = films.customer_id"
+    customer_count
     values = [@id]
     screening_data = SqlRunner.run(sql, values)
     return screening_data.map { |screen| Screening.new(screen) }
