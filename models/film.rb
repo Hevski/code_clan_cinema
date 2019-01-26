@@ -51,13 +51,13 @@ class Film
     film = Film.new(result)
   end
 
-  def customer
+  def customers
     sql = "SELECT customers.*
            FROM customers
            INNER JOIN tickets
-           ON tickets.customer_id = customers.id
+           ON customers.id = tickets.customer_id
            INNER JOIN screenings
-           ON screenings.film_id = films.id
+           ON tickets.screening_id = screenings.id
            WHERE film_id = $1"
     values = [@id]
     customer_data = SqlRunner.run(sql, values)
@@ -65,7 +65,7 @@ class Film
   end
 
   def customer_count
-    customer().length
+    customers().length
   end
 
   def screening()
