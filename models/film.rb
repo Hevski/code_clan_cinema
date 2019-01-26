@@ -1,5 +1,5 @@
 require_relative("../db/sql_runner")
-require('pry')
+
 
 class Film
   attr_accessor :title, :price
@@ -56,7 +56,9 @@ class Film
            FROM customers
            INNER JOIN tickets
            ON tickets.customer_id = customers.id
-           WHERE film_id = $1 ORDER BY name"
+           INNER JOIN screenings
+           ON screenings.film_id = films.id
+           WHERE film_id = $1"
     values = [@id]
     customer_data = SqlRunner.run(sql, values)
     return customer_data.map { |customer| Customer.new(customer) }
@@ -66,13 +68,11 @@ class Film
     customer().length
   end
 
-  def screening
-    sql = "SELECT screenings.*
-           FROM screenings
+  def screening()
+    sql = "SELECT * FROM time, film_id, customer_id
            INNER JOIN tickets
-           ON tickets.screening_id = screenings.id
-           WHERE film_id = $1"
-    customer_count
+           FROM screenings
+           WHERE tickets.screening_id = screenings.id"
     values = [@id]
     screening_data = SqlRunner.run(sql, values)
     return screening_data.map { |screen| Screening.new(screen) }
