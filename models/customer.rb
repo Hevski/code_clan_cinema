@@ -73,6 +73,6 @@ class Customer
   end
 
   def tickets_purchased()
-    film().length
+    films().length
   end
 end
