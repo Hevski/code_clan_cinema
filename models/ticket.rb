@@ -43,4 +43,16 @@ class Ticket
     result = SqlRunner.run(sql, values).first
     ticket = Ticket.new(result)
   end
+
+  def self.most_pop_time(film)
+    sql = "SELECT screenings.*
+           FROM screenings
+           INNER JOIN tickets
+           ON screenings.id = tickets.screening_id
+           WHERE film_id = $1"
+    values = [film]
+    pop_time = SqlRunner.run(sql, values)
+    result = pop_time.map{ |time| Screening.new(time) }
+    return result
+  end
 end
