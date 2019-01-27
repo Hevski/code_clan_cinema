@@ -44,4 +44,18 @@ class Screening
     result = SqlRunner.run(sql, values).first
     screening = Screening.new(result)
   end
+
+  def most_pop_time()
+    sql = "SELECT screening_id,
+           COUNT(screening_id) AS VALUE_OCCURRENCE
+           FROM tickets GROUP BY screening_id
+           WHERE film_id = $1
+           ORDER BY VALUE_OCCURRENCE DESC"
+    # values = [@id]
+    # pop_time = SqlRunner.run(sql, values).first
+    # return pop_time.map{ |time| Screening.new(time) }
+    values = [@id]
+    result = SqlRunner.run(sql, values).first
+    return result
+  end
 end
