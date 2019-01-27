@@ -44,20 +44,29 @@ class Ticket
     ticket = Ticket.new(result)
   end
 
-  # def most_pop_time
-  #   sql = "SELECT time, COUNT(time)
-  #          AS MOST_FREQUENT FROM
-  #          screenings GROUP BY
-  #          screenings.title ORDER BY COUNT(time) DESC"
-  # end
+  def most_pop_time
+    sql = "SELECT time, COUNT(time)
+           AS MOST_FREQUENT FROM
+           screenings GROUP BY
+           tickets.screening_id WHERE film_id = $1
+           ORDER BY COUNT(film_id) ASC"
+  end
+end
 
-#   select column, COUNT(column) AS MOST_FREQUENT
-# from TABLE_NAME
-# GROUP BY column
-# ORDER BY COUNT(column) DESC
 
-  # def self.most_pop_time(film)
-  #   sql = "SELECT screenings.*
+  # "SELECT time, COUNT(time)
+  # AS MOST_FREQUENT FROM
+  # screenings GROUP BY
+  # screenings.time ORDER BY COUNT(time) DESC
+  #
+  #
+  # # select column, COUNT(column) AS MOST_FREQUENT
+  # # from TABLE_NAME
+  # # GROUP BY column
+  # # ORDER BY COUNT(column) DESC
+  #
+  # # def self.most_pop_time(film)
+  # #   sql = "SELECT screenings.*
   #          FROM screenings
   #          INNER JOIN tickets
   #          ON screenings.id = tickets.screening_id
@@ -67,4 +76,3 @@ class Ticket
   #   result = pop_time.map{ |time| Screening.new(time) }
   #   return result
   # end
-end
