@@ -51,9 +51,10 @@ class Screening
            FROM tickets GROUP BY screening_id
            WHERE film_id = $1
            ORDER BY VALUE_OCCURRENCE DESC"
-    result = SqlRunner.run(sql)['screening_id'][0].to_i
-    #binding.pry
-    return result
+    values = [@id]
+    binding.pry
+    pop_time = SqlRunner.run(sql, values)['screening_id'][0].to_i
+    return result.map { |time| Screening.new(time) }
   end
   #how do i get pry to work?
 end
