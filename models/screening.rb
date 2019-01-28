@@ -49,6 +49,7 @@ class Screening
     sql = "SELECT screening_id,
            COUNT(screening_id) AS VALUE_OCCURRENCE
            FROM tickets GROUP BY screening_id
+           WHERE film_id = $1
            ORDER BY VALUE_OCCURRENCE DESC"
     result = SqlRunner.run(sql)['screening_id'][0].to_i
     #binding.pry
